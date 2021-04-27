@@ -11,8 +11,8 @@ Nous allons maintenant créer un nouveau type de joueur qui va disposer de plus 
 Bravo, tu as fini la version 2.0 ! Si tout est fait proprement jusque là, tu valides sans souci le projet. Maintenant, on va augmenter un peu le niveau car tu as besoin de challenge. Fini le pas à pas : on va te donner des instructions plus générales, charge à toi de t'en sortir seul !  
 * * *
 ### Lancement
-Pour la version 1 lancer app.rb  ==> version auto Antho VS Xabi
-Pour la version 2 lancer app_2.rb  ==> version humain VS 2 bots
-Pour la version 3 lancer app_3.rb  ==> version humain VS 10 bots (4 au départ puis plus au fur et à mesure...)
+Pour la version 1 lancer app.rb  ==> version auto Antho VS Xabi  
+Pour la version 2 lancer app_2.rb  ==> version humain VS 2 bots  
+Pour la version 3 lancer app_3.rb  ==> version humain VS 10 bots (4 au départ puis plus au fur et à mesure...)  
 
 
