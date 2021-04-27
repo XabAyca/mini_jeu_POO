@@ -1,75 +1,89 @@
 class Game
-  attr_accessor :human_player, :ennemies
+  attr_accessor :human_player, :ennemies_in_sight
 
   def initialize(name)
-    @human_player   = HumanPlayer.new(name)
-    @ennemies       = []
+    @human_player      = HumanPlayer.new(name)
+    @players_left      = 10
+    @ennemies_in_sight = []
   end
 
   def create_ennemies
-    ennemie1 = Player.new("Josiane")
-    @ennemies << ennemie1
-    ennemie2 = Player.new("José")
-    @ennemies << ennemie2
-    ennemie3 = Player.new("Martin")
-    @ennemies << ennemie3
-    ennemie4 = Player.new("Marie")
-    @ennemies << ennemie4
+    @ennemies_in_sight << Player.new("Josiane")
+    @ennemies_in_sight << Player.new("José")
+    @ennemies_in_sight << Player.new("Martin")
+    @ennemies_in_sight << Player.new("Marie")
+  end
+
+  def new_players_in_sight
+    if @ennemies_in_sight.size >= @players_left
+      puts ""
+      puts "Tous les joueurs sont déjà en vue" 
+    else
+      result = rand(1..6)
+      if result == 1
+        puts ""
+        puts "Pas d'ennemies supplémentaires à l'horizon pour l'instant"
+      elsif result == 5 || result == 6
+        2.times {|i| @ennemies_in_sight << Player.new("bots-#{rand(1..999)}")}
+        puts ""
+        puts "\033[1;31mAttention 2 nouveaux ennemis approchent ..."+"\033[0m"
+      else
+        1.times {|i| @ennemies_in_sight << Player.new("bots-#{rand(1..999)}")}
+        puts ""
+        puts "\033[1;31mAttention 1 nouvel ennemi approche ..."+"\033[0m"
+      end
+    end
   end
 
   def kill_player(player)
-    @ennemies.delete(player)
+    @ennemies_in_sight.delete(player)
   end
 
   def is_still_ongoing?
-    puts @human_player.life_points > 0 && @ennemies.size > 0
+    puts @human_player.life_points > 0 && @ennemies_in_sight.size > 0
   end
 
   def show_players
     puts ""
-    puts "#{@human_player.player} a #{@human_player.life_points} point(s) de vie et une arme de niveau #{@human_player.weapon_level}."
+    puts "___________________________________________"
+    puts "\033[1;34mEtat de santé de #{@human_player.player} : #{@human_player.life_points}       ------"+"\033[0m"
+    puts "\033[1;34mArme level             : #{@human_player.weapon_level}       ------"+"\033[0m"
+    puts "___________________________________________"
     puts ""
-    puts "Il reste #{@ennemies.size} ennemies à vaincre !!!"
+    puts "Il reste #{@ennemies_in_sight.size} ennemies à vaincre !!!"
     puts ""
   end
 
   def menu
-    puts "___________________________________________"
-    puts "\033[1;34mEtat de sante de #{@human_player.player} : #{@human_player.life_points}       ------"+"\033[0m"
-    puts "___________________________________________"
     puts "Quelle action veux tu effectuer ?"
     puts ""
     puts "a - chercher une meilleur arme"
     puts "b - chercher une trousse de secours"
     puts ""
     puts "Attaquer un joueur en vue :"
-    @ennemies.size.times do |i|
-      @ennemies[i].life_points > 0 ? (puts "#{i} - #{@ennemies[i].show_state}") : ()
+    @ennemies_in_sight.size.times do |i|
+      @ennemies_in_sight[i].life_points > 0 ? (puts "#{i} - #{@ennemies_in_sight[i].show_state}") : ()
     end
     puts ""
+    print "> "
   end
 
   def menu_choise(str)
+    puts "============================================"
+    @ennemies_in_sight.each {|ennemie| ennemie.life_points < 0 ? (kill_player(ennemie)) : ()}
     if str == "a"
       @human_player.search_weapon
     elsif str == "b"
       @human_player.search_health_pack
-    elsif str == "0"
-      @human_player.attacks(@ennemies[0])
-    elsif str == "1"
-      @human_player.attacks(@ennemies[1])
-    elsif str == "2"
-      @human_player.attacks(@ennemies[2])
-    elsif str == "3"
-      @human_player.attacks(@ennemies[3])
-    else
-      puts "Fait un effort, fait un choix qui existe..."
+    else 
+      str = str.to_i
+      @human_player.attacks(@ennemies_in_sight[str])
     end
     puts ""
   end
 
   def enemies_attack
-    @ennemies.each {|ennemie| ennemie.life_points > 0 ? (ennemie.attacks(@human_player)) : (kill_player(ennemie))}
+    @ennemies_in_sight.each {|ennemie| ennemie.life_points > 0 && @human_player.life_points > 0 ? (ennemie.attacks(@human_player)) : (kill_player(ennemie))}
   end
 
   def end_game
@@ -83,6 +97,10 @@ class Game
       puts "\033[1;31mYOU ARE DEAD !!!!!"+"\033[0m"
       puts ""
     end
+  end
+
+  def clear_the_shell
+    system('clear')
   end
 
 end

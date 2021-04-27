@@ -17,7 +17,7 @@ class HumanPlayer < Player
 
   def search_weapon
     result = rand(1..6)
-    puts "Tu as trouvé une arme de niveau #{result}"
+    puts "\033[1;35mTu as trouvé une arme de niveau #{result}"+"\033[0m"
     if @weapon_level < result
       puts "Youhouuuu ! Elle est meilleur que ton arme actuelle : tu la prends."
       @weapon_level = result

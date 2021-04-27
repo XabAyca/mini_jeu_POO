@@ -32,6 +32,7 @@ def fight(user, ennemie1, ennemie2, ennemies)
   while user.life_points > 0 && (ennemie1.life_points > 0 || ennemie2.life_points > 0)
     puts "___________________________________________"
     puts "\033[1;34mEtat de sante de #{user.player} : #{user.life_points}       ------"+"\033[0m"
+    puts "\033[1;34mArme level :             #{user.weapon_level}       ------"+"\033[0m"
     puts "___________________________________________"
     puts "Quelle action veux tu effectuer ?"
     puts ""
