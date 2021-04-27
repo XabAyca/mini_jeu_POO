@@ -15,6 +15,7 @@ class HumanPlayer < Player
     rand(1..6) * @weapon_level
   end 
 
+  # Chercher une arme (aléatoire)
   def search_weapon
     result = rand(1..6)
     puts "\033[1;35mTu as trouvé une arme de niveau #{result}"+"\033[0m"
@@ -26,6 +27,7 @@ class HumanPlayer < Player
     end
   end
 
+  # Chercher une trousse de secours (aléatoire)
   def search_health_pack
     result = rand(1..6)
     if result == 1

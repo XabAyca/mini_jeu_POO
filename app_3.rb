@@ -5,7 +5,7 @@ require_relative 'lib/game'
 require_relative 'lib/player'
 require_relative 'lib/human_player'
 
-
+#Lancement
 
 puts " __________________________________________"
 puts "|            Bienvenue à toi               |"
@@ -18,8 +18,10 @@ puts ""
 puts "Quel est ton nom jeune guerrier :"
 print "> "
 name = gets.chomp
-@my_game =Game.new(name)
+@my_game = Game.new(name)
 @my_game.create_ennemies
+
+# Boucle de lancement des méthodes (seulement l'objet @my_game)
 
 while @my_game.human_player.life_points > 0 && @my_game.ennemies_in_sight.size > 0
   @my_game.new_players_in_sight

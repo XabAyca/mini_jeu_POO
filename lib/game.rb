@@ -14,6 +14,7 @@ class Game
     @ennemies_in_sight << Player.new("Marie")
   end
 
+  # Ajoute des ennemies aléatoirement initialisé à 10
   def new_players_in_sight
     if @ennemies_in_sight.size >= @players_left
       puts ""
@@ -35,8 +36,10 @@ class Game
     end
   end
 
+  #Suppr un player de l'array et le soustrait des ennemies restant à vaincre
   def kill_player(player)
     @ennemies_in_sight.delete(player)
+    @players_left = @players_left - 1
   end
 
   def is_still_ongoing?
@@ -50,7 +53,7 @@ class Game
     puts "\033[1;34mArme level             : #{@human_player.weapon_level}       ------"+"\033[0m"
     puts "___________________________________________"
     puts ""
-    puts "Il reste #{@ennemies_in_sight.size} ennemies à vaincre !!!"
+    puts "Il reste #{@players_left} ennemies à vaincre !!!"
     puts ""
   end
 
@@ -96,12 +99,24 @@ class Game
       puts ""
       puts "\033[1;31mYOU ARE DEAD !!!!!"+"\033[0m"
       puts ""
+      loose()
     end
   end
 
+  # Permet de clear le shell pour une meilleur lisibilité
   def clear_the_shell
     system('clear')
   end
 
+  # Pour le fun
+  def loose
+    puts"\033[1;31m  ww       wwwwwwwww   wwwwwwwww  wwwww   wwwww   wwwww  "+"\033[0m"
+    puts"\033[1;31m  ww       wwwwwwwww   wwwwwwwww  ww      ww      w   w "+"\033[0m"
+    puts"\033[1;31m  ww       ww     ww   ww     ww   www    wwww    wwww   "+"\033[0m"
+    puts"\033[1;31m  wwwwwww  wwwwwwwww   wwwwwwwww      ww  ww      w  w   "+"\033[0m"
+    puts"\033[1;31m  wwwwwww  wwwwwwwww   wwwwwwwww   wwwww  wwwww   w   w  "+"\033[0m"
+    puts""
+  end
+  
 end
 

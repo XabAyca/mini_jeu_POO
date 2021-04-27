@@ -5,7 +5,7 @@ require_relative 'lib/game'
 require_relative 'lib/player'
 require_relative 'lib/human_player'
 
-
+ # Lancement de la partie
 puts " __________________________________________"
 puts "|            Bienvenue à toi               |"
 puts "| Pour ressortir vivant de cette aventure  |"
@@ -20,16 +20,14 @@ name = gets.chomp
 user = HumanPlayer.new(name)
 
 ennemies = []
-ennemie1 = Player.new("Josiane")
-ennemies << ennemie1
-ennemie2 = Player.new("José")
-ennemies << ennemie2
+ennemies << Player.new("Josiane")
+ennemies << Player.new("José")
 
 
 
-
-def fight(user, ennemie1, ennemie2, ennemies)
-  while user.life_points > 0 && (ennemie1.life_points > 0 || ennemie2.life_points > 0)
+# Combat : lance les méthodes de HumanPlayer(et parent player)
+def fight(user, ennemies)
+  while user.life_points > 0 && (ennemies[0].life_points > 0 || ennemies[1].life_points > 0)
     puts "___________________________________________"
     puts "\033[1;34mEtat de sante de #{user.player} : #{user.life_points}       ------"+"\033[0m"
     puts "\033[1;34mArme level :             #{user.weapon_level}       ------"+"\033[0m"
@@ -40,8 +38,8 @@ def fight(user, ennemie1, ennemie2, ennemies)
     puts "b - chercher une trousse de secours"
     puts ""
     puts "Attaquer un joueur en vue :"
-    puts "0 - #{ennemie1.show_state}"
-    puts "1 - #{ennemie2.show_state}"
+    puts "0 - #{ennemies[0].show_state}"
+    puts "1 - #{ennemies[1].show_state}"
     print "> "
     choose = gets.chomp.to_s
     puts ""
@@ -50,9 +48,9 @@ def fight(user, ennemie1, ennemie2, ennemies)
     elsif choose == "b"
       user.search_health_pack
     elsif choose == "0"
-      user.attacks(ennemie1)
+      user.attacks(ennemies[0])
     elsif choose == "1"
-      user.attacks(ennemie2)
+      user.attacks(ennemies[1])
     else
       puts "Fait un effort, fait un choix qui existe..."
     end
@@ -61,6 +59,7 @@ def fight(user, ennemie1, ennemie2, ennemies)
   end
 end
 
+# Fin de partie
 def end_game(user)
   if user.life_points > 0 
     puts ""
@@ -75,7 +74,7 @@ def end_game(user)
 end
 
 
-fight(user, ennemie1, ennemie2, ennemies)
+fight(user, ennemies)
 end_game(user)
 
 

@@ -6,10 +6,12 @@ class Player
     @life_points  = 10  
   end
 
+  #Stats de chaque perso
   def show_state
     @life_points > 0 ? ("#{@player} a #{@life_points} point(s) de vie.") : ("Le joueur #{@player} est mort...")
   end
 
+  # Déduire les dégats
   def gets_damage(damages)
     @life_points = @life_points - damages
     if @life_points <= 0
@@ -17,6 +19,7 @@ class Player
     end
   end
 
+  # Méthode PVP
   def attacks(player_attacked)
     puts "Le joueur #{@player} attaque le joueur #{player_attacked.player}"
     damages=compute_damage()
