@@ -8,7 +8,7 @@ require_relative 'lib/human_player'
 
 
 puts " __________________________________________"
-puts "|           Bienvenue à toi               |"
+puts "|            Bienvenue à toi               |"
 puts "| Pour ressortir vivant de cette aventure  |"
 puts "| Vous devrez vaincre tous vos adversaires |"
 puts "|                                          |"
